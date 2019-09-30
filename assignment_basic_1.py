@@ -41,28 +41,25 @@ def process(file_path):
         if i in letter:
             letter[i] += 1
 
-    # Prepare the arrays for the printing (the dictionary isn't in the correct order)
+    # Prepare the arrays for the printing
     x = np.arange(0,len(letter))
-    y = np.empty(len(x))
-    j=0
-    for i in alphabet:
-        y[j] = letter[str(i)]
-        j += 1
-    x_tick= [str(i) for i in alphabet]  # keys-array in the correct order
+    y = np.array([*letter.values()])
+    y = y/y.sum()
+    x_tick= [*letter.keys()]  # keys-array in the correct order
 
     # Print the final output
     print('Relative frequence of each letter of the alphabet: \n')
-    j=0
-    for i in x_tick:
-        print(i,y[j]/y.sum())
-        j+=1
+    for i,j in zip (x_tick,y):
+        print(f'{i}: {j}')
+
+
 
     # Optional display of the frequences' histogram
     if args.histogram != None:
         logging.info('Displaying the frequences\' histogram')
         plt.title('Bar plot of the frequences')
         plt.bar(x,y,tick_label=x_tick)
-        plt.ylabel('Absolute frequences')
+        plt.ylabel('Relative frequences')
         plt.show()
         logging.info('Done.')
 
