@@ -78,8 +78,6 @@ def process(file_path):
 
 
 if __name__ == '__main__':
-    start = time.process_time()
-    
     parser = argparse.ArgumentParser(description=_description)
     parser.add_argument('-i', '--input', required=True, help= 'path to the input file')
     parser.add_argument('-hist','--histogram',help= 'Optional histogram of the frequencies: digit yes   if you want')
@@ -91,6 +89,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=args.logging_level.upper())
     logging.info('The severity level requested for the logging is set...')
     
+    start = time.process_time()
     process(args.input)
     
     print('Total elapsed time: {} s'.format(time.process_time()-start))
